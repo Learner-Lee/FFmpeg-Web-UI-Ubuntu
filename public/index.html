@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFmpeg Web Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select, input[type="file"], button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        progress {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .cpu-usage {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        .cpu-usage span {
+            font-weight: bold;
+        }
+        .video-list {
+            margin-top: 20px;
+        }
+        .video-list a {
+            display: block;
+            margin: 5px 0;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .video-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FFmpeg Web Interface</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="video">Upload Video:</label>
+            <input type="file" name="video" accept="video/*" required>
+
+            <label for="format">Choose Output Format:</label>
+            <select name="format">
+                <option value="mp4">MP4</option>
+                <option value="mkv">MKV</option>
+                <option value="avi">AVI</option>
+            </select>
+
+            <label for="resolution">Choose Resolution:</label>
+            <select name="resolution">
+                <option value="1280x720">720p</option>
+                <option value="1920x1080">1080p</option>
+                <option value="3840x2160">4K</option>
+            </select>
+
+            <label for="bitrate">Choose Bitrate:</label>
+            <select name="bitrate">
+                <option value="1000k">1 Mbps</option>
+                <option value="2500k">2.5 Mbps</option>
+                <option value="5000k">5 Mbps</option>
+            </select>
+
+            <button type="submit">Upload and Convert</button>
+        </form>
+
+        <form id="uploadFolderForm" enctype="multipart/form-data">
+            <label for="folder">Upload Folder:</label>
+            <input type="file" name="folder" webkitdirectory directory multiple>
+            <button type="submit">Upload Folder and Convert</button>
+        </form>
+
+        <progress id="progressBar" value="0" max="100"></progress>
+        <div id="status"></div>
+
+        <div class="cpu-usage">
+            <span>CPU Usage:</span> <span id="cpuUsage">0%</span>
+        </div>
+
+        <button id="cancelButton">Cancel Conversion</button>
+
+        <div class="video-list" id="videoList">
+            <!-- Converted videos will be listed here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
